@@ -88,6 +88,7 @@ static int cmd_info(char *args){//   打印程序状态
 	 }else{//输出某个特定寄存器的值
 			int tmp = info_r(args);
 			if(tmp == -1)
+				return 0;
 				printf("%s:\t0x%x\t%d\n",args,tmp,tmp);
 	 }
 	  return 0;	
