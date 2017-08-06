@@ -48,6 +48,24 @@ static int cmd_si(char *args){//args从字符转换成数字  单步执行
 	
 }
 
+int info_r(char *arg){
+	int i = 0;
+	for(i = R_EAX; i <= R_EDI; i++){
+		if(strcmp(arg,regsl[i]) == 0)
+			return reg_l(i);
+	}
+	for(i = R_AX; i <= R_DI; i++){
+		if(strcmp(arg,regsw[i]) == 0)
+			return reg_w(i);
+	}
+	for(i = R_AL; i <= R_BH; i++){
+		if(strcmp(arg,regsb[i]) == 0)
+			return reg_b(i);
+	}
+	printf("Register error\n");
+	return -1;
+}
+
 static int cmd_info(char *args){//   打印程序状态 
 	 char *arg = strtok(NULL,"$");//去掉字符串中的 $ 符
 	 int len=strlen(arg);
@@ -67,25 +85,9 @@ static int cmd_info(char *args){//   打印程序状态
 			//print_wp();
 		}
 	 }else{//输出某个特定寄存器的值
-			 int i=0;
-			 int tmp;
-			 for(i=R_EAX; i<=R_EDI;i++){
-				 if(strcmp(arg,regsl[i]) == 0){
-					 tmp = reg_l(i);
-				 }
-			 }
-			 for(i=R_AX; i<=R_DI;i++){
-				 if(strcmp(arg,regsw[i]) == 0){
-					 tmp = reg_w(i);
-				 }
-			 }
-			 for(i=R_AL; i<=R_BH;i++){
-				 if(strcmp(arg,regsb[i]) == 0){
-					tmp =  reg_b(i);
-				 }
-			 }
-			 printf("%s:\t0x%x\t%d\n",args,tmp,tmp);
-			// printf("Refister error!\n");	
+			int tmp = info_r(arg);
+			if(tmp == -1)
+				printf("%s:\t0x%x\t%d\n",args,tmp,tmp);
 	 }
 	  return 0;	
 }
