@@ -49,7 +49,6 @@ static int cmd_si(char *args){//args从字符转换成数字  单步执行
 }
 
 int info_r(char *arg){
-	//char *arg = strtok(args,"$");
 	int i = 0;
 	for(i = R_EAX; i <= R_EDI; i++){
 		if(strcmp(arg,regsl[i]) == 0)
