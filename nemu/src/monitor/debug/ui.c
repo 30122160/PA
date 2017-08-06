@@ -93,6 +93,17 @@ static int cmd_info(char *args){//   打印程序状态
 	  return 0;	
 }
 
+
+static int cmd_eval(char *args){//表达式求值 
+	bool success = true;
+	int num = expr(args,&success);	
+	if(success == false)
+		return 0;
+	printf("%d\n",num);
+	return 0;
+	
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -103,6 +114,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{"si","Single Step",cmd_si},
 	{"info","Print Program Status",cmd_info},
+	{"p","Expression evaluation",cmd_eval}
 
 	/* TODO: Add more commands */
 
