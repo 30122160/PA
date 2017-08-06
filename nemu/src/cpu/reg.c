@@ -18,10 +18,10 @@ void reg_test() {
 	for(i = R_EAX; i <= R_EDI; i ++) {
 		sample[i] = rand();
 		reg_l(i) = sample[i];
-		assert(reg_w(i) == (sample[i] & 0xffff));
+		assert(reg_w(i) == (sample[i] & 0xffff));//取低16位
 	}
 
-	assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));
+	assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));//32位寄存器的值
 	assert(reg_b(R_AH) == ((sample[R_EAX] >> 8) & 0xff));
 	assert(reg_b(R_BL) == (sample[R_EBX] & 0xff));
 	assert(reg_b(R_BH) == ((sample[R_EBX] >> 8) & 0xff));
@@ -30,7 +30,7 @@ void reg_test() {
 	assert(reg_b(R_DL) == (sample[R_EDX] & 0xff));
 	assert(reg_b(R_DH) == ((sample[R_EDX] >> 8) & 0xff));
 
-	assert(sample[R_EAX] == cpu.eax);
+	assert(sample[R_EAX] == cpu.eax);//32位寄存器的值等于eax的值
 	assert(sample[R_ECX] == cpu.ecx);
 	assert(sample[R_EDX] == cpu.edx);
 	assert(sample[R_EBX] == cpu.ebx);

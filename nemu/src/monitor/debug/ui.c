@@ -38,6 +38,58 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args){//args从字符转换成数字  单步执行  
+	int steps =1;
+	if(args!=NULL){
+		steps = atoi(args);	
+	}
+		cpu_exec(steps);
+		return 0;
+	
+}
+
+static int cmd_info(char *args){//   打印程序状态 
+	 char *arg = strtok(NULL,"$");//去掉字符串中的 $ 符
+	 int len=strlen(arg);
+	 if(len == 1){
+		if(strcmp(arg,"r") == 0){//输出所有寄存器的值
+		 	int i = 0;
+			for(i = R_EAX; i <= R_EDI; i++){
+				printf("%s:\t0x%x\t%d\n",regsl[i],reg_l(i),reg_l(i));
+			}
+			for(i = R_AX; i <= R_DI; i++){
+				printf("%s:\t0x%x\t%d\n",regsw[i],reg_w(i),reg_w(i));
+			}
+			for(i = R_AL; i <= R_BH; i++){
+				printf("%s:\t0x%x\t%d\n",regsb[i],reg_b(i),reg_b(i));
+			}
+	 	}else if(strcmp(arg,"w") == 0){
+			//print_wp();
+		}
+	 }else{//输出某个特定寄存器的值
+			 int i=0;
+			 int tmp;
+			 for(i=R_EAX; i<=R_EDI;i++){
+				 if(strcmp(arg,regsl[i]) == 0){
+					 tmp = reg_l(i);
+				 }
+			 }
+			 for(i=R_AX; i<=R_DI;i++){
+				 if(strcmp(arg,regsw[i]) == 0){
+					 tmp = reg_w(i);
+				 }
+			 }
+			 for(i=R_AL; i<=R_BH;i++){
+				 if(strcmp(arg,regsb[i]) == 0){
+					tmp =  reg_b(i);
+				 }
+			 }
+			 printf("%s:\t0x%x\t%d\n",args,tmp,tmp);
+			// printf("Refister error!\n");	
+	 }
+	  return 0;	
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -46,6 +98,8 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
+	{"si","Single Step",cmd_si},
+	{"info","Print Program Status",cmd_info},
 
 	/* TODO: Add more commands */
 
