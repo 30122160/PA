@@ -48,7 +48,8 @@ static int cmd_si(char *args){//args从字符转换成数字  单步执行
 	
 }
 
-int info_r(char *arg){
+int info_r(char *args){
+	char *arg = strtok(args,"$");
 	int i = 0;
 	for(i = R_EAX; i <= R_EDI; i++){
 		if(strcmp(arg,regsl[i]) == 0)
@@ -85,7 +86,7 @@ static int cmd_info(char *args){//   打印程序状态
 			//print_wp();
 		}
 	 }else{//输出某个特定寄存器的值
-			int tmp = info_r(arg);
+			int tmp = info_r(args);
 			if(tmp == -1)
 				printf("%s:\t0x%x\t%d\n",args,tmp,tmp);
 	 }
