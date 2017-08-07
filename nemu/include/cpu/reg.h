@@ -14,8 +14,8 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
-typedef struct {//通用寄存器共用一块内存  union
-	union {
+typedef struct {
+	union {//通用寄存器共用一块内存  union
 		uint32_t _32;
 		uint16_t _16;
 		uint8_t _8[2];

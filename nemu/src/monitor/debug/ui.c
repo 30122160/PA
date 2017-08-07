@@ -105,6 +105,24 @@ static int cmd_eval(char *args){//表达式求值
 	
 }
 
+
+static int cmd_x(char *args){//扫描内存 表达式的值作为起始内存地址，输出连续的N个四字节
+	char *N = strtok(NULL," ");//获取N值
+	char *arg = strtok(NULL," ");//获取表达式
+	int i;
+	bool success = true;
+	int expAdr = expr(arg,&success);//表达式的值
+	if(success == false)
+		return 0;
+	printf("0x%x: ",expAdr);
+	for(i = 0; i < atoi(N); i++){
+		printf("0x%x\t",swaddr_read(expAdr+i, 1));//输出对应地址内存的值
+	}
+	printf("\n");
+return 0;
+	
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -116,6 +134,7 @@ static struct {
 	{"si","Single Step",cmd_si},
 	{"info","Print Program Status",cmd_info},
 	{"p","Expression evaluation",cmd_eval},
+	{"x","Scan the memory",cmd_x},
 
 	/* TODO: Add more commands */
 
