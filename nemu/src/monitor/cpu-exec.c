@@ -74,7 +74,7 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* TODO: check watchpoints here. */
 		int num = check_wp();
-		if(num != -1){
+		if(num == -1){
 			printf("Watchpoint %d's value changed\n", num);
 			nemu_state = STOP;
 		}
