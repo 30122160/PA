@@ -8,10 +8,9 @@
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
-static int cmd_w(char *args);
-static int cmd_d(char *args);
 void set_wp(char *args);
 void free_wp(int N );
+void print_wp();
 /* We use the ``readline'' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -86,7 +85,7 @@ static int cmd_info(char *args){//   打印程序状态
 				printf("%s:\t0x%x\t%d\n",regsb[i],reg_b(i),reg_b(i));
 			}
 	 	}else if(strcmp(arg,"w") == 0){
-			//print_wp();
+			print_wp();
 		}
 	 }else{//输出某个特定寄存器的值
 			int tmp = info_r(args);
