@@ -8,7 +8,10 @@
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
-
+static int cmd_w(char *args);
+static int cmd_d(char *args);
+void set_wp(char *args);
+void free_wp(int N );
 /* We use the ``readline'' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -119,8 +122,18 @@ static int cmd_x(char *args){//扫描内存 表达式的值作为起始内存地
 		printf("0x%x\t",swaddr_read(expAdr+i, 1));//输出对应地址内存的值
 	}
 	printf("\n");
-return 0;
-	
+	return 0;	
+}
+
+static int cmd_w(char *args){//设置监视点 当表达式的值发生变化时，暂停
+	set_wp(args);
+	return 0;
+}
+
+static int cmd_d(char *args){//删除监视点
+	int N=atoi(args);
+	free_wp(N);
+	return 0;
 }
 
 static struct {
@@ -135,6 +148,8 @@ static struct {
 	{"info","Print Program Status",cmd_info},
 	{"p","Expression evaluation",cmd_eval},
 	{"x","Scan the memory",cmd_x},
+	{"w","Set the watch point",cmd_w},
+	{"d","Delete the watch point",cmd_d},
 
 	/* TODO: Add more commands */
 
