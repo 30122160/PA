@@ -48,7 +48,7 @@ void set_wp(char *args){//插入 给监视点赋初始值
 void free_wp(int N ){//将监视点wp归还到free 链表中
 	WP *tmp=head;
 	if(tmp == NULL) assert(0);//空表
-	else if(tmp->NO== N){//头节点是要归还到free链表中的节点
+	if(tmp->NO== N){//头节点是要归还到free链表中的节点
 		head = head->next;
 		tmp->next = free_;
 		free_=tmp;

@@ -85,7 +85,7 @@ static int cmd_info(char *args){//   打印程序状态
 				printf("%s:\t0x%x\t%d\n",regsb[i],reg_b(i),reg_b(i));
 			}
 	 	}else if(strcmp(arg,"w") == 0){
-			print_wp();
+				print_wp();
 		}
 	 }else{//输出某个特定寄存器的值
 			int tmp = info_r(args);
