@@ -159,9 +159,11 @@ static bool make_token(char *e) {//识别表达式中的token
 
 static int stack[MAX_SIZE];
 unsigned int StackLen = 0;
+
 static void InitStack(){//初始化
 	StackLen = 0;
 }
+
 static void push(int var){//入栈
 	if(StackLen == MAX_SIZE){
 		printf("Stack is full!\n");
@@ -169,6 +171,7 @@ static void push(int var){//入栈
 	}
 	stack[StackLen++] = var;
 }
+
 static void pop(){//出栈
 	if(StackLen == 0){
 		printf("Stack is empty\n");
@@ -176,6 +179,7 @@ static void pop(){//出栈
 	}	
 	StackLen--;
 }
+
 static bool check_parentheses(int start, int end){// 判断最外层是否有括号
 	InitStack();
 	int i;
@@ -192,7 +196,6 @@ static bool check_parentheses(int start, int end){// 判断最外层是否有括
 	}
 	return true;
 }
-
 
 static bool check_bar(){//查看表达式括号匹配
 	InitStack();
