@@ -72,7 +72,7 @@ typedef struct token {
 Token tokens[MAX_SIZE];
 int nr_token;
 
-static bool make_token(char *e) {
+static bool make_token(char *e) {//识别表达式中的token
 	int position = 0;
 	int i;
 	regmatch_t pmatch;
